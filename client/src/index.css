@@ -72,3 +72,82 @@
   background-color: #666e75;
   border-radius: 5px;
 }
+
+
+/* MainPage.css */
+
+.mainpage-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-image: url('./assets/main.jpg'); /* Ensure the correct path to your image */
+  background-size: cover;
+  background-position: center;
+}
+
+.mainpage-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.63); /* Adjust opacity */
+}
+
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  height: 125px;
+  width: 150px;
+  margin-bottom: 20px;
+}
+
+.typed-container {
+  height: 2.5rem; 
+  margin-bottom: 2.5rem;
+}
+
+.typed-text {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.cta-button {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  background-color: #4583e7;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.primary {
+  color: #4583e7;
+}
+
+
+/* Media Queries for smaller screens */
+@media (max-width: 768px) {
+  .typed-text {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .typed-text {
+    font-size: 1.2rem;
+  }
+}

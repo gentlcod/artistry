@@ -8,6 +8,8 @@ import artistryRoute from './routes/artistryRoute.js';
 dotenv.config();
 
 const app = express();
+
+// Middleware
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
@@ -20,14 +22,20 @@ app.get('/', async (req, res) => {
   res.send('Hello from Artistry!');
 });
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Error:', err.stack);
+  res.status(500).send('Something broke!');
+});
+
 const startServer = async () => {
   try {
-    await connectDB(process.env.MONGODB_URL); // Ensure the database is connected before starting the server
-    app.listen(8080, () => 
-      console.log('Server has started on http://localhost:8080')
-    );
+    connectDB(process.env.MONGODB_URL); // Ensure the database is connected before starting the server
+    app.listen(8080, () => {
+      console.log('Server has started on http://localhost:8080');
+    });
   } catch (error) {
-    console.log('Error starting server:', error);
+    console.error('Error starting server:', error);
   }
 };
 

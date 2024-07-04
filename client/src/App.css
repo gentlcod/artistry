@@ -42,6 +42,4 @@
 }
 
 
-.green_gradient {
-  @apply bg-gradient-to-r from-green-400 text-[#22c55e] to-green-500 bg-clip-text text-transparent;
-}
+
