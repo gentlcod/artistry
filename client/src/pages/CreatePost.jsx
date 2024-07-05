@@ -25,9 +25,9 @@ const CreatePost = () => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
-        console.log(`Sending request to generate image with prompt: ${form.prompt}`);
+        // console.log(`Sending request to generate image with prompt: ${form.prompt}`);
   
-        const response = await fetch('http://localhost:8080/api/v1/artistry', {
+        const response = await fetch('http://localhost:8080/v1/api', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -39,14 +39,14 @@ const CreatePost = () => {
   
         if (!response.ok) {
           const errorText = await response.text();
-          console.error('Response error text:', errorText);
+          // console.error('Response error text:', errorText);
           throw new Error('Failed to generate image');
         }
   
         const data = await response.json();
         setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
       } catch (error) {
-        console.error('Error in generateImage:', error);
+        // console.error('Error in generateImage:', error);
         alert('Failed to generate image. Please try again.');
       } finally {
         setGeneratingImg(false);

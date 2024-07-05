@@ -1,32 +1,31 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import OpenAI from 'openai';
 
 dotenv.config();
 
 const router = express.Router();
 
-// Test route to check if the server is running
-
-router.route('/').get((req, res) => {
-  res.status(200).json({ message: 'Hello from ARTISTRY!' });
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
-router.route('/').post(async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { prompt } = req.body;
 
-    const aiResponse = await openai.createImage({
+    const aiResponse = await openai.images.create({
       prompt,
       n: 1,
       size: '1024x1024',
-      response_format: 'b64_json',
+      responseType: 'b64',
     });
 
-    const image = aiResponse.data.data[0].b64_json;
+    const image = aiResponse.data[0].toString('base64');
     res.status(200).json({ photo: image });
   } catch (error) {
-    console.error(error);
-    res.status(500).send(error?.response.data.error.message || 'Something went wrong');
+    console.error('Error generating image:', error);
+    res.status(500).send(error?.response?.data?.error?.message || 'Something went wrong');
   }
 });
 
